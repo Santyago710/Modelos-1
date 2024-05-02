@@ -1,16 +1,20 @@
 // Decorador para agregar luces a un casco
-public class CascoConLuces extends CascoDecorador {
+// Interfaz para los diferentes tipos de cascos
+// Decorador para agregar luces a un casco
+public class CascoConLuces implements Casco {
+    private Casco casco;
+
     public CascoConLuces(Casco casco) {
-        super(casco);
+        this.casco = casco;
     }
 
     @Override
     public String descripcion() {
-        return super.descripcion() + ", con luces";
+        return casco.descripcion() + ", con luces";
     }
 
     @Override
     public double precio() {
-        return super.precio() + 20.0;
+        return casco.precio() + 20.0;
     }
 }
