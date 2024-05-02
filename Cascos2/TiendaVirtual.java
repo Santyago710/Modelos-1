@@ -19,10 +19,10 @@ public class TiendaVirtual {
 
             switch (opcion) {
                 case 1:
-                    submenuAccesorios(scanner);
+                    menuPersonalizarCasco(scanner, cascoPersonalizado);
                     break;
                 case 2:
-                    submenuCascos(scanner);
+                    menuComprarCasco(scanner, cascoBase);
                     break;
                 case 3:
                     submenuAccesorios(scanner);
@@ -34,6 +34,58 @@ public class TiendaVirtual {
                 default:
                     System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
             }
+        }
+    }
+
+    private static void menuPersonalizarCasco(Scanner scanner, Casco casco) {
+        System.out.println("Personalizar casco:");
+        System.out.println("1. Agregar visera");
+        System.out.println("2. Agregar luces");
+        System.out.println("3. Volver al menú principal");
+        System.out.print("Seleccione una opción: ");
+        int opcion = scanner.nextInt();
+        switch (opcion) {
+            case 1:
+                casco = new CascoConVisera(casco);
+                System.out.println("Se ha agregado una visera al casco.");
+                break;
+            case 2:
+                casco = new CascoConLuces(casco);
+                System.out.println("Se han agregado luces al casco.");
+                break;
+            case 3:
+                System.out.println("Volviendo al menú principal...");
+                return;
+            default:
+                System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+        }
+        // Muestra la descripción y el precio actualizado del casco personalizado
+        System.out.println("Descripción del casco: " + casco.descripcion());
+        System.out.println("Precio del casco: $" + casco.precio());
+    }
+
+    private static void menuComprarCasco(Scanner scanner, Casco casco) {
+        System.out.println("Comprar casco:");
+        System.out.println("1. Comprar casco actual");
+        System.out.println("2. Comprar casco básico");
+        System.out.println("3. Volver al menú principal");
+        System.out.print("Seleccione una opción: ");
+        int opcion = scanner.nextInt();
+        switch (opcion) {
+            case 1:
+                Comando comprarCascoCommand = new ComprarCascoCommand(casco);
+                comprarCascoCommand.ejecutar();
+                break;
+            case 2:
+                casco = new CascoBase();
+                Comando comprarCascoBaseCommand = new ComprarCascoCommand(casco);
+                comprarCascoBaseCommand.ejecutar();
+                break;
+            case 3:
+                System.out.println("Volviendo al menú principal...");
+                break;
+            default:
+                System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
         }
     }
 
@@ -51,33 +103,6 @@ public class TiendaVirtual {
                 break;
             case 2:
                 System.out.println("Ha seleccionado: Funda para casco - $15");
-                break;
-            case 0:
-                System.out.println("Volviendo al menú principal...");
-                break;
-            default:
-                System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
-        }
-    }
-
-    private static void submenuCascos(Scanner scanner) {
-        System.out.println("Seleccione un casco:");
-        System.out.println("1. Casco básico - $50");
-        System.out.println("2. Casco con visera - $60");
-        System.out.println("3. Casco con luces - $70");
-        // Agrega más cascos si es necesario
-        System.out.println("0. Volver al menú principal");
-        System.out.print("Seleccione una opción: ");
-        int opcion = scanner.nextInt();
-        switch (opcion) {
-            case 1:
-                System.out.println("Ha seleccionado: Casco básico - $50");
-                break;
-            case 2:
-                System.out.println("Ha seleccionado: Casco con visera - $60");
-                break;
-            case 3:
-                System.out.println("Ha seleccionado: Casco con luces - $70");
                 break;
             case 0:
                 System.out.println("Volviendo al menú principal...");
